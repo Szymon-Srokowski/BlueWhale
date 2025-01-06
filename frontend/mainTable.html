@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan zajęć</title>
+  <link rel="stylesheet" href="css/table.css">
+  <script src="js/table.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="header-container">
+    <img src="images/zut.jpg" alt="ZUT Logo">
+    <div>
+      <button><img src="images/settings.png"></button>
+      <button><img src="images/polish.png"></button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="filters">
+    <label>
+      Numer albumu
+      <input type="text" placeholder="Wprowadź numer albumu">
+    </label>
+    <label>
+      Grupa
+      <input type="text" placeholder="Wprowadź grupę">
+    </label>
+    <label>
+      Wykładowca
+      <input type="text" placeholder="Wprowadź wykładowcę">
+    </label>
+    <label>
+      Przedmiot
+      <input type="text" placeholder="Wprowadź nazwę przedmiotu">
+    </label>
+    <label>
+      Sala
+      <input type="text" placeholder="Wprowadź salę">
+    </label>
+    <div class="filters-buttons">
+      <button class="show-plan">Pokaż plan</button>
+      <button class="reset-filters">
+      <img src="images/filters.png" alt="icon" class="button-icon">Wyczyść filtry
+    </button>
+
+    </div>
+  </div>
+
+  <div class="schedule">
+    <div class="schedule-header">
+      <div class="left">
+        <button class="today">Dzisiaj</button>
+      </div>
+      <div class="right">
+        <button>Dzień</button>
+        <button class="active">Tydzień</button>
+        <button>Miesiąc</button>
+      </div>
+    </div>
+
+    <div class="calendar-container">
+      <div class="calendar-header" id="calendar-header">
+      </div>
+
+      <div class="calendar-grid" id="calendar-grid">
+      </div>
+    </div>
+
+    <div class="footer">
+      <button>Wstecz</button>
+      <span>6 - 12 Sty 2025</span>
+      <button>Przód</button>
+      <div class="export">
+        <button><img src="images/export.png" alt="icon" class="button-icon"> Eksport planu</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
