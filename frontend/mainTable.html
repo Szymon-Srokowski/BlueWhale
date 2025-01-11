@@ -1,97 +1,107 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plan zajęć</title>
-  <link rel="stylesheet" href="css/table-white.css">
-  <link id="dark-mode-stylesheet" rel="stylesheet" href="css/table-dark.css" disabled>
-  <script src="js/table.js" defer></script>
-</head>
-<body>
-<header>
-  <div class="header-container">
-    <img src="images/zut.png" alt="ZUT Logo">
-    <div>
-      <button class="theme" id="theme-toggle">
-        <img src="images/moon.svg" alt="Switch theme" class="theme-icon">
-      </button>
-      <button><img src="images/pl.svg" alt="pl"></button>
-    </div>
-  </div>
-</header>
-
-<div class="container">
-  <div class="filters">
-    <label>
-      Numer albumu
-      <input type="text" placeholder="Wprowadź numer albumu">
-    </label>
-    <label>
-      Grupa
-      <input type="text" placeholder="Wprowadź grupę">
-    </label>
-    <label>
-      Wykładowca
-      <input type="text" placeholder="Wprowadź wykładowcę">
-    </label>
-    <label>
-      Przedmiot
-      <input type="text" placeholder="Wprowadź nazwę przedmiotu">
-    </label>
-    <label>
-      Sala
-      <input type="text" placeholder="Wprowadź salę">
-    </label>
-    <div class="filters-buttons">
-      <button class="show-plan">
-        <img src="images/loop.svg" alt="loop" class="button-icon">
-        Pokaż plan
-      </button>
-      <button class="reset-filters">
-        <img src="images/filter.svg" alt="filter" class="button-icon">
-        Wyczyść filtry
-      </button>
-    </div>
-  </div>
-
-  <div class="schedule">
-    <div class="schedule-header">
-      <div class="left">
-        <button id="today-btn" class="today">Dzisiaj</button>
-      </div>
-      <div class="right">
-        <button id="day-btn">Dzień</button>
-        <button id="week-btn">Tydzień</button>
-        <button id="month-btn">Miesiąc</button>
-      </div>
-    </div>
-
-    <div class="calendar-container">
-      <div class="calendar-header" id="calendar-header">
-      </div>
-
-      <div class="calendar-grid" id="calendar-grid">
-      </div>
-    </div>
-
-    <div class="footer">
-      <button id="prev-btn">
-        <img src="images/left.svg" alt="previous" class="button-icon">
-        <span>Wstecz</span>
-      </button><span id="date-display" class="date-display"></span>
-      <button id="next-btn">
-        <span>Przód</span>
-        <img src="images/right.svg" alt="next" class="button-icon">
-      </button>
-      <div class="export">
-        <button>
-          <img src="images/export.svg" alt="export" class="button-icon"> Eksport planu
+  <!DOCTYPE html>
+  <html lang="pl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-translate="title">Plan zajęć</title>
+    <link rel="stylesheet" href="css/table-white.css">
+    <link id="dark-mode-stylesheet" rel="stylesheet" href="css/table-dark.css" disabled>
+    <script src="js/table.js" defer></script>
+  </head>
+  <body>
+  <header>
+    <div class="header-container">
+      <img src="images/zut.png" alt="ZUT Logo">
+      <div>
+        <button class="theme" id="theme-toggle">
+          <img src="images/moon.svg" alt="Switch theme" class="theme-icon">
+        </button>
+        <button id="language-toggle">
+          <img src="images/pl.svg" alt="Language" class="language-icon">
         </button>
       </div>
     </div>
-  </div>
-</div>
-</body>
-</html>
+  </header>
 
+  <div class="container">
+    <div class="filters">
+      <label data-translate="label-album">
+        <span>Numer albumu</span>
+        <input type="text" data-translate-placeholder="placeholder-album" placeholder="Wprowadź numer albumu">
+      </label>
+      <label data-translate="label-group">
+        <span>Grupa</span>
+        <input type="text" data-translate-placeholder="placeholder-group" placeholder="Wprowadź grupę">
+      </label>
+      <label data-translate="label-teacher">
+        <span>Wykładowca</span>
+        <input type="text" data-translate-placeholder="placeholder-teacher" placeholder="Wprowadź wykładowcę">
+      </label>
+      <label data-translate="label-subject">
+        <span>Przedmiot</span>
+        <input type="text" data-translate-placeholder="placeholder-subject" placeholder="Wprowadź nazwę przedmiotu">
+      </label>
+      <label data-translate="label-room">
+        <span>Sala</span>
+        <input type="text" data-translate-placeholder="placeholder-room" placeholder="Wprowadź salę">
+      </label>
+      <div class="filters-buttons">
+        <button class="show-plan" data-translate="button-show-plan">
+          <img src="images/loop.svg" alt="loop" class="button-icon">
+          <span>Pokaż plan</span>
+        </button>
+        <button id="reset-filters-btn" class="reset-filters" data-translate="button-reset-filters">
+          <img src="images/filter.svg" alt="filter" class="button-icon">
+          <span>Wyczyść filtry</span>
+        </button>
+      </div>
+    </div>
+
+
+    <div class="schedule">
+      <div class="schedule-header">
+        <div class="left">
+          <button id="today-btn" class="today" data-translate="button-today">Dzisiaj</button>
+        </div>
+        <div class="right">
+          <button id="day-btn" data-translate="button-day">Dzień</button>
+          <button id="week-btn" data-translate="button-week">Tydzień</button>
+          <button id="month-btn" data-translate="button-month">Miesiąc</button>
+        </div>
+      </div>
+
+      <div class="calendar-container">
+        <div id="calendar-header" class="calendar-header"></div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+
+        <div id="day-view" class="day-view-container">
+          <div id="day-title" class="day-title-row"></div>
+          <div id="day-grid" class="day-grid"></div>
+        </div>
+
+        <div id="week-view" class="week-view-container">
+          <div id="week-title" class="day-title-row"></div>
+          <div id="week-grid" class="week-grid"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button id="prev-btn" data-translate="button-prev">
+          <img src="images/left.svg" alt="previous" class="button-icon">
+          <span>Wstecz</span>
+        </button>
+        <span id="date-display" class="date-display"></span>
+        <button id="next-btn" data-translate="button-next">
+          <span>Przód</span>
+          <img src="images/right.svg" alt="next" class="button-icon">
+        </button>
+        <div class="export">
+          <button data-translate="button-export">
+            <img src="images/export.svg" alt="export" class="button-icon"><span>Eksport planu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+  </html>
