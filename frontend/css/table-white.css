@@ -29,7 +29,7 @@ header img {
 
 .container {
     display: flex;
-    gap: 20px;
+    gap: 50px;
     margin: 20px;
     justify-content: space-between;
     width: 90%;
@@ -175,8 +175,10 @@ header img {
     max-width: 900px;
     background-color: #fff;
     border: 1px solid #808a9d;
-    border-radius: 8px;
+    border-radius: 18px;
+    margin-left: -15px;
     overflow: hidden;
+    height: 500px;
 }
 
 .date-display {
@@ -360,16 +362,18 @@ header div div {
 }
 .day-view-container {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 0;
     grid-template-rows: auto 1fr;
     width: 100%;
     max-width: 900px;
     background-color: #3BDF691A;
-    border: 1px solid #808a9d;
-    border-radius: 8px;
-    overflow: hidden;
+    border: 0px solid #808a9d;
+    border-radius: 10px;
+    /*overflow: hidden;*/
     height: 600px;
     position: relative;
+    overflow-y: hidden;
+    overflow-x: visible;
 }
 
 .day-title-row {
@@ -381,7 +385,7 @@ header div div {
     font-weight: bold;
     color: #333;
     background-color: #ffffff;
-    height: 36px;
+    height: 40px;
     border-bottom: 1px solid #808A9D;
     text-align: center;
 }
@@ -418,6 +422,8 @@ header div div {
     grid-template-rows: repeat(14, 1fr);
     border-top: none;
     background-color: transparent;
+    width: 100%;
+    overflow: hidden;
 }
 
 .day-grid-row {
@@ -425,11 +431,12 @@ header div div {
     align-items: center;
     justify-content: flex-start;
     border-bottom: 1px solid #808a9d;
-    padding: 0 10px;
+    /*padding: 0 10px;*/
     font-size: 14px;
     height: auto;
     width: calc(100% + 50px);
-    margin-left: -50px;
+    /*margin-left: -50px;*/
+    left: 0;
     background-color: transparent;
 }
 
@@ -471,7 +478,7 @@ header div div {
 }
 .week-view-container {
     display: grid;
-    grid-template-columns: 50px repeat(7, 1fr);
+    grid-template-columns: 0 repeat(7, 1fr);
     grid-template-rows: 40px repeat(14, 1fr);
     width: 100%;
     max-width: 900px;
@@ -516,7 +523,7 @@ header div div {
 }
 
 .week-grid-cell {
-    border: 1px solid #e0e0e0;
+    border: 1px solid black;
     background-color: #ffffff;
 }
 .week-header {
@@ -606,3 +613,43 @@ header div div {
     background-color: #fff;
 }
 
+.hour-grid{
+    position:relative;
+    left: -20px;
+    top: 0;
+    color:black;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.8em;
+    flex-direction: column;
+    /*height: 100%;*/
+    overflow: hidden;
+    height: 500px;
+}
+.hour-grid > div:first-of-type {
+    margin-top: 46px;
+}
+
+
+.calendar-wrapper {
+    top: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+.week-header-cell {
+    border-right: 0px solid #808a9d;
+}
+
+.week-grid-cell.current-day,
+.week-header-cell.current-day {
+    background-color: #16C784;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #0D7421;
+}
