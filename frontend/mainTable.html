@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="title">Plan zajęć</title>
+    <script src="js/table.js" defer></script>
     <link rel="stylesheet" href="css/table-white.css">
     <link id="dark-mode-stylesheet" rel="stylesheet" href="css/table-dark.css" disabled>
-    <script src="js/table.js" defer></script>
   </head>
   <body>
   <header>
@@ -69,10 +69,15 @@
           <button id="month-btn" data-translate="button-month">Miesiąc</button>
         </div>
       </div>
+      <div class="calendar-wrapper">
+        <div id="hour-grid" class="hour-grid"> </div>
 
       <div class="calendar-container">
         <div id="calendar-header" class="calendar-header"></div>
         <div id="calendar-grid" class="calendar-grid"></div>
+
+
+
 
         <div id="day-view" class="day-view-container">
           <div id="day-title" class="day-title-row"></div>
@@ -82,7 +87,9 @@
         <div id="week-view" class="week-view-container">
           <div id="week-title" class="day-title-row"></div>
           <div id="week-grid" class="week-grid"></div>
+
         </div>
+      </div>
       </div>
 
       <div class="footer">
