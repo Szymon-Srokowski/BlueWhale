@@ -9,6 +9,7 @@ const daysInPrevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth
 
 const calendarGrid = document.getElementById('calendar-grid');
 const dateDisplay = document.getElementById('date-display');
+const hourGrid = document.getElementById('hour-grid')
 
 function generateHeader() {
     calendarGrid.innerHTML = "";
@@ -100,6 +101,15 @@ themeToggleButton.addEventListener("click", () => {
 
     const theme = isDarkMode ? "dark" : "light";
     localStorage.setItem("theme", theme);
+
+    if (currentMode === "week") {
+        createWeekView();
+    } else if (currentMode === "day") {
+        updateDayView();
+    } else if (currentMode === "month") {
+        generateCalendar();
+    }
+    updateDateDisplay();
 });
 
 let currentMode = 'month';
@@ -116,6 +126,7 @@ document.getElementById('week-btn').addEventListener('click', () => {
     currentMode = 'week';
     setActiveButton('week-btn');
     switchView('week');
+    createWeekView();
     updateDateDisplay();
 });
 
@@ -136,7 +147,7 @@ function changeDate(direction) {
         updateDateDisplay();
     } else if (currentMode === 'week') {
         displayedDate.setDate(displayedDate.getDate() + increment * 7);
-        createWeekView(); // Пересоздаем недельное представление
+        createWeekView();
         updateDateDisplay();
     } else if (currentMode === 'month') {
         displayedDate.setMonth(displayedDate.getMonth() + increment);
@@ -157,6 +168,21 @@ document.getElementById('today-btn').addEventListener('click', () => {
     if (currentMode === 'week') createWeekView();
 });
 
+const initHours = () => {
+
+    for (let i = 7; i <= 20; i++) {
+        const hour = i.toString().padStart(2, '0');
+
+
+        const hourLabel = document.createElement('div');
+        hourLabel.classList.add('hour-label');
+        hourLabel.textContent = hour;
+
+        hourGrid.appendChild(hourLabel);
+    }
+}
+initHours()
+
 function updateDayView() {
     const dayTitle = document.getElementById('day-title');
     const dayGrid = document.getElementById('day-grid');
@@ -169,17 +195,10 @@ function updateDayView() {
     dayGrid.innerHTML = '';
 
     for (let i = 7; i <= 20; i++) {
-        const hour = i.toString().padStart(2, '0');
-
         const row = document.createElement('div');
         row.classList.add('day-grid-row');
-
-        const hourLabel = document.createElement('div');
-        hourLabel.classList.add('hour-label');
-        hourLabel.textContent = hour;
-
-        row.appendChild(hourLabel);
         dayGrid.appendChild(row);
+
     }
 }
 
@@ -197,11 +216,16 @@ function switchView(mode) {
 
     if (mode === 'day') {
         dayView.style.display = 'grid';
+        hourGrid.style.display='flex';
+
     } else if (mode === 'week') {
         weekView.style.display = 'grid';
+        hourGrid.style.display='flex';
+
     } else if (mode === 'month') {
         monthHeader.style.display = 'grid';
         monthGrid.style.display = 'grid';
+        hourGrid.style.display='none';
     }
 }
 
@@ -216,10 +240,20 @@ function createWeekView() {
     const offset = currentDay === 0 ? -6 : 1 - currentDay;
     startOfWeek.setDate(displayedDate.getDate() + offset);
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isDarkMode = !document.getElementById("dark-mode-stylesheet").disabled;
+
+    const headerBgColor = isDarkMode ? "#0D1421" : "#ffffff";
+    const headerTextColor = isDarkMode ? "#ffffff" : "#000000";
+    const gridBgColor = isDarkMode ? "#0D1421" : "#f8f8f8";
+    const gridBorderColor = isDarkMode ? "#808a9d" : "#808a9d";
+
     for (let i = 0; i < 8; i++) {
         const cell = document.createElement('div');
         if (i === 0) {
-            cell.classList.add('week-header-cell');
+            cell.classList.add('week-grid-cell');
             cell.textContent = '';
         } else {
             const dayDate = new Date(startOfWeek);
@@ -229,25 +263,47 @@ function createWeekView() {
             const monthNumber = String(dayDate.getMonth() + 1).padStart(2, '0');
 
             cell.classList.add('week-header-cell');
+            if (dayDate.getTime() === today.getTime()) {
+                cell.classList.add('current-day');
+            }
             cell.innerHTML = `<strong>${days[i - 1]}</strong><br>${dayNumber}.${monthNumber}`;
         }
+        cell.style.backgroundColor = headerBgColor;
+        cell.style.color = headerTextColor;
         weekView.appendChild(cell);
     }
 
     for (let hour = 7; hour <= 20; hour++) {
         for (let col = 0; col < 8; col++) {
             const cell = document.createElement('div');
-            if (col === 0) {
-                cell.classList.add('week-hour-cell');
-                cell.textContent = hour.toString().padStart(2, '0');
-            } else {
+
+                const dayDate = new Date(startOfWeek);
+                dayDate.setDate(startOfWeek.getDate() + col - 1);
+
                 cell.classList.add('week-grid-cell');
-            }
+                if (dayDate.getTime() === today.getTime()) {
+                    cell.classList.add('current-day');
+                }
+                cell.style.backgroundColor = gridBgColor;
+                cell.style.border = `1px solid ${gridBorderColor}`;
+                cell.style.borderBottom = 'none';
+                cell.style.borderRight = 'none';
+
+                if (col === 1) {
+                    cell.style.borderLeft = 'none';
+                }
+                if (col === 7) {
+                    cell.style.borderRight = 'none';
+                }
+                if (hour === 20) {
+                    cell.style.borderBottom = 'none';
+                }
+
             weekView.appendChild(cell);
         }
     }
-
 }
+
 document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("theme");
 

@@ -138,17 +138,23 @@ header img {
     display: none !important;
 }
 .day-view-container {
-    display: grid;
-    grid-template-columns: 50px 1fr;
-    grid-template-rows: auto 1fr;
-    width: 100%;
-    max-width: 900px;
-    background-color: #3BDF691A;
+    position: relative;
+    background-color: #0D1421;
     border: 1px solid #808a9d;
     border-radius: 8px;
     overflow: hidden;
     height: 600px;
-    position: relative;
+}
+
+.day-view-container::before {
+    content: "";
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 40px);
+    background-color: rgba(50, 154, 114, 0.1);
+    pointer-events: none;
 }
 
 .day-title-row {
@@ -159,11 +165,13 @@ header img {
     font-size: 18px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #0D1421;
-    height: 36px;
+    background-color: #0D1421 !important;
+    height: 40px;
     border-bottom: 1px solid #808A9D;
     text-align: center;
+    z-index: 1;
 }
+
 
 .hours-column {
     position: absolute;
@@ -183,7 +191,7 @@ header img {
     transform: rotate(-90deg);
     text-align: center;
     font-size: 14px;
-    color: #000;
+    color: #ffffff;
     white-space: nowrap;
     display: block;
     height: 20px;
@@ -222,6 +230,127 @@ header img {
     font-size: 14px;
 }
 .week-header-cell {
+    border-right: 0px solid #808a9d;
+}
+
+.week-grid-cell.current-day,
+.week-header-cell.current-day {
+    background-color: #16C784;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #0D7421;
+}
+.calendar-cell:nth-child(-n + 7){
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: #fff;
+}
+
+.hour-grid{
+    position:relative;
+    left: 10px;
+    top: 0;
+    color:black;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.8em;
+    flex-direction: column;
+    /*height: 100%;*/
+    overflow: hidden;
+    height: 500px;
+}
+.hour-grid > div:first-of-type {
+    margin-top: 46px;
+}
+.week-hour-cell {
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #000;
+    width: 40px;
+    height: 20px;
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    white-space: nowrap;
+}
+
+.week-grid-row {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 10px;
+    font-size: 12px;
+    height: 40px;
+    background-color: #ffffff;
+}
+
+.week-grid-cell {
+    border: 1px solid black;
+    background-color: #ffffff;
+}
+.week-header {
+    display: grid;
+    grid-template-columns: 50px repeat(7, 1fr);
+    text-align: center;
+    font-weight: bold;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #808a9d;
+}
+.week-hour-column {
+    grid-row: 2 / span 1;
+    grid-column: 1 / span 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f8f8;
+    border-right: 1px solid #808a9d;
+}
+
+.week-hour-label {
+    font-weight: bold;
+    text-align: center;
+    font-size: 12px;
+    color: #000;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #808a9d;
+    transform: rotate(-180deg);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.week-grid {
+    grid-column: 2 / span 7;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(14, 1fr);
+    background-color: #ffffff;
+    border-collapse: collapse;
+}
+
+.week-grid-column {
+    border-right: 1px solid #808a9d;
+    display: flex;
+    flex-direction: column;
+}
+
+.week-grid-column:last-child {
+    border-right: none;
+}
+
+.week-grid-row:last-child {
+    border-bottom: none;
+}
+.week-header-cell {
     text-align: center;
     font-size: 14px;
     font-weight: bold;
@@ -249,100 +378,13 @@ header img {
 }
 .week-view-container {
     display: grid;
-    grid-template-columns: 50px repeat(7, 1fr);
+    grid-template-columns: 0 repeat(7, 1fr);
     grid-template-rows: 40px repeat(14, 1fr);
     width: 100%;
     max-width: 900px;
     height: 600px;
-    background-color: #0D1421;
-    border: 0px solid #808a9d;
     border-radius: 8px;
-    overflow: hidden;
 }
-
-.week-hour-cell {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ffffff;
-    width: 40px;
-    height: 20px;
-    transform: rotate(-90deg);
-    transform-origin: center center;
-    white-space: nowrap;
-}
-
-.week-grid-row {
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-start;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 0 10px;
-    font-size: 12px;
-    height: 40px;
-    background-color: #ffffff;
-}
-
-.week-grid-cell {
-    border: 1px solid #808a9d;
-    background-color: #0D1421;
-}
-.week-header {
-    display: grid;
-    grid-template-columns: 50px repeat(7, 1fr);
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid #808a9d;
-}
-.week-hour-column {
-    grid-row: 2 / span 1;
-    grid-column: 1 / span 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #0D1421;
-    border-right: 1px solid #808a9d;
-}
-
-.week-hour-label {
-    font-weight: bold;
-    text-align: center;
-    font-size: 12px;
-    color: #000;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #808a9d;
-    transform: rotate(-180deg);
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-}
-
-.week-grid {
-    grid-column: 2 / span 7;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(14, 1fr);
-    background-color: #0D1421;
-    border-collapse: collapse;
-}
-
-.week-grid-column {
-    border-right: 1px solid #808a9d;
-    display: flex;
-    flex-direction: column;
-}
-
-.week-grid-column:last-child {
-    border-right: none;
-}
-
-.week-grid-row:last-child {
-    border-bottom: none;
-}
-
 .schedule {
     flex: 1;
     display: flex;
@@ -380,6 +422,7 @@ header img {
     background: #16C784;
     color: #fff;
     font-weight: bold;
+    margin-left: 30px;
 }
 
 .right button {
@@ -406,7 +449,8 @@ header img {
     max-width: 900px;
     background-color: #fff;
     border: 1px solid #808a9d;
-    border-radius: 8px;
+    border-radius: 18px;
+    margin-left: 15px;
     overflow: hidden;
 }
 
