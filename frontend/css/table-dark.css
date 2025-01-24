@@ -733,7 +733,6 @@ header div div {
 .calendar-grid.semester-mode .calendar-cell {
     background-color: #0D1421;
     border-collapse: collapse;
-    /*border: 1px solid #808A9D;*/
     border:none;
     color: #ffffff;
     height: 80px;

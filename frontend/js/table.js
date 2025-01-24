@@ -50,17 +50,16 @@ function generateCalendar() {
 }
 
 function setActiveButton(activeButtonId) {
-    const buttons = ['day-btn', 'week-btn', 'month-btn', 'semester-btn']; // Добавляем 'semester-btn'
+    const buttons = ['day-btn', 'week-btn', 'month-btn', 'semester-btn'];
     buttons.forEach(buttonId => {
         const button = document.getElementById(buttonId);
         if (buttonId === activeButtonId) {
-            button.classList.add('active'); // Активируем выбранную кнопку
+            button.classList.add('active');
         } else {
-            button.classList.remove('active'); // Убираем активность с других кнопок
+            button.classList.remove('active');
         }
     });
 }
-
 
 function updateDateDisplay() {
     if (!dateDisplay) {
@@ -69,7 +68,7 @@ function updateDateDisplay() {
     }
 
     if (currentMode === 'month') {
-        const options = { month: 'long', year: 'numeric' };
+        const options = {month: 'long', year: 'numeric'};
         dateDisplay.textContent = displayedDate.toLocaleDateString('pl-PL', options);
     } else if (currentMode === 'week') {
         const startOfWeek = new Date(displayedDate);
@@ -78,10 +77,10 @@ function updateDateDisplay() {
         startOfWeek.setDate(displayedDate.getDate() - displayedDate.getDay() + 1);
         endOfWeek.setDate(startOfWeek.getDate() + 6);
 
-        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        const options = {day: 'numeric', month: 'short', year: 'numeric'};
         dateDisplay.textContent = `${startOfWeek.toLocaleDateString('pl-PL', options)} - ${endOfWeek.toLocaleDateString('pl-PL', options)}`;
     } else if (currentMode === 'day') {
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        const options = {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'};
         dateDisplay.textContent = displayedDate.toLocaleDateString('pl-PL', options);
     }
 }
@@ -171,8 +170,7 @@ document.getElementById('next-btn').addEventListener('click', () => changeDate('
 document.getElementById('today-btn').addEventListener('click', () => {
     displayedDate = new Date(currentDate);
     switchView(currentMode);
-    if (currentMode === 'day') updateDayView();
-    else if (currentMode === 'month') generateCalendar();
+    if (currentMode === 'day') updateDayView(); else if (currentMode === 'month') generateCalendar();
     updateDateDisplay();
     if (currentMode === 'week') createWeekView();
 });
@@ -196,7 +194,7 @@ function updateDayView() {
     const dayTitle = document.getElementById('day-title');
     const dayGrid = document.getElementById('day-grid');
 
-    const optionsTitle = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+    const optionsTitle = {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'};
     const currentDayName = displayedDate.toLocaleDateString('pl-PL', optionsTitle);
 
     dayTitle.textContent = currentDayName.charAt(0).toUpperCase() + currentDayName.slice(1);
@@ -217,82 +215,69 @@ function switchView(mode) {
     const monthHeader = document.getElementById('calendar-header');
     const monthGrid = document.getElementById('calendar-grid');
     const hourGrid = document.getElementById('hour-grid');
-    const footer = document.querySelector('.footer'); // Футер с кнопками и датой
+    const footer = document.querySelector('.footer');
 
-    // Скрываем все виды и часы по умолчанию
     dayView.style.display = 'none';
     weekView.style.display = 'none';
     monthHeader.style.display = 'none';
     monthGrid.style.display = 'none';
     calendarGrid.classList.remove('semester-mode');
-    hourGrid.style.display = 'none'; // Скрываем часы
+    hourGrid.style.display = 'none';
 
-    // Включаем режим в зависимости от выбранного
     if (mode === 'day') {
         dayView.style.display = 'grid';
-        hourGrid.style.display = 'flex'; // Показываем часы
-        calendarGrid.style.overflowY = 'hidden'; // Убираем скролл
-        if (footer) footer.style.display = 'flex'; // Показываем футер
+        hourGrid.style.display = 'flex';
+        calendarGrid.style.overflowY = 'hidden';
+        if (footer) footer.style.display = 'flex';
     } else if (mode === 'week') {
         weekView.style.display = 'grid';
-        hourGrid.style.display = 'flex'; // Показываем часы
-        calendarGrid.style.overflowY = 'hidden'; // Убираем скролл
-        if (footer) footer.style.display = 'flex'; // Показываем футер
+        hourGrid.style.display = 'flex';
+        calendarGrid.style.overflowY = 'hidden';
+        if (footer) footer.style.display = 'flex';
     } else if (mode === 'month') {
         monthHeader.style.display = 'grid';
         monthGrid.style.display = 'grid';
-        calendarGrid.style.overflowY = 'hidden'; // Убираем скролл
-        if (footer) footer.style.display = 'flex'; // Показываем футер
+        calendarGrid.style.overflowY = 'hidden';
+        if (footer) footer.style.display = 'flex';
     } else if (mode === 'semester') {
-        monthHeader.style.display = 'grid'; // Показываем заголовок дней недели
+        monthHeader.style.display = 'grid';
         calendarGrid.style.display = 'grid';
-        calendarGrid.style.overflowY = 'scroll'; // Включаем скролл
-        calendarGrid.style.maxHeight = '600px'; // Ограничиваем высоту
+        calendarGrid.style.overflowY = 'scroll';
+        calendarGrid.style.maxHeight = '600px';
         calendarGrid.classList.add('semester-mode');
-        if (footer) footer.style.display = 'none'; // Скрываем футер
+        if (footer) footer.style.display = 'none';
     }
 }
 
 function generateSemesterCalendar() {
-    const today = new Date(); // Актуальная дата
-    const currentMonth = today.getMonth(); // Текущий месяц (0 = январь, 11 = декабрь)
-    const currentYear = today.getFullYear(); // Текущий год
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
 
-    let startSemesterDate = new Date(today); // Начало — текущая неделя
-    const endSemesterDate = new Date(currentYear, 1, 15); // Конец семестра — 15 февраля
+    let startSemesterDate = new Date(today);
+    const endSemesterDate = new Date(currentYear, 1, 15);
 
-    // Сдвигаем `startSemesterDate` к понедельнику текущей недели
-    const currentDayOfWeek = today.getDay() || 7; // Воскресенье = 7
-    startSemesterDate.setDate(today.getDate() - (currentDayOfWeek - 1)); // Переходим на понедельник
+    const currentDayOfWeek = today.getDay() || 7;
+    startSemesterDate.setDate(today.getDate() - (currentDayOfWeek - 1));
 
-    // Очистка календаря
     calendarGrid.innerHTML = '';
-
-    // Генерация заголовка дней недели
     generateHeader();
 
-    // Генерация дней календаря
-    let currentDate = new Date(startSemesterDate); // Копия текущей даты для итерации
+    let currentDate = new Date(startSemesterDate);
 
     while (currentDate <= endSemesterDate) {
         const cell = document.createElement('div');
         cell.classList.add('calendar-cell');
 
-        // Заполнение дней
         cell.textContent = currentDate.getDate();
         cell.title = currentDate.toLocaleDateString('pl-PL');
 
-        // Выделение текущего дня
-        if (
-            currentDate.getDate() === today.getDate() &&
-            currentDate.getMonth() === today.getMonth() &&
-            currentDate.getFullYear() === today.getFullYear()
-        ) {
+        if (currentDate.getDate() === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear()) {
             cell.classList.add('current-day');
         }
 
         calendarGrid.appendChild(cell);
-        currentDate.setDate(currentDate.getDate() + 1); // Переход к следующему дню
+        currentDate.setDate(currentDate.getDate() + 1);
     }
 }
 
@@ -343,27 +328,27 @@ function createWeekView() {
         for (let col = 0; col < 8; col++) {
             const cell = document.createElement('div');
 
-                const dayDate = new Date(startOfWeek);
-                dayDate.setDate(startOfWeek.getDate() + col - 1);
+            const dayDate = new Date(startOfWeek);
+            dayDate.setDate(startOfWeek.getDate() + col - 1);
 
-                cell.classList.add('week-grid-cell');
-                if (dayDate.getTime() === today.getTime()) {
-                    cell.classList.add('current-day');
-                }
-                cell.style.backgroundColor = gridBgColor;
-                cell.style.border = `1px solid ${gridBorderColor}`;
-                cell.style.borderBottom = 'none';
+            cell.classList.add('week-grid-cell');
+            if (dayDate.getTime() === today.getTime()) {
+                cell.classList.add('current-day');
+            }
+            cell.style.backgroundColor = gridBgColor;
+            cell.style.border = `1px solid ${gridBorderColor}`;
+            cell.style.borderBottom = 'none';
+            cell.style.borderRight = 'none';
+
+            if (col === 1) {
+                cell.style.borderLeft = 'none';
+            }
+            if (col === 7) {
                 cell.style.borderRight = 'none';
-
-                if (col === 1) {
-                    cell.style.borderLeft = 'none';
-                }
-                if (col === 7) {
-                    cell.style.borderRight = 'none';
-                }
-                if (hour === 20) {
-                    cell.style.borderBottom = 'none';
-                }
+            }
+            if (hour === 20) {
+                cell.style.borderBottom = 'none';
+            }
 
             weekView.appendChild(cell);
         }
@@ -418,8 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "button-next": "Przód",
             "button-semester": "Semestr",
             "button-export": "Eksport planu",
-        },
-        en: {
+        }, en: {
             "title": "Schedule plan",
             "label-album": "Album number",
             "placeholder-album": "Enter album number",
@@ -475,7 +459,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-
     document.getElementById('language-toggle').addEventListener('click', toggleLanguage);
 
     updateTranslations();
@@ -488,65 +471,51 @@ document.getElementById('reset-filters-btn').addEventListener('click', () => {
     });
 
 
-const saveFavoritesBtn = document.getElementById('save-favorites-btn');
-const favoritesList = document.getElementById('favorites-list');
-const filterInputs = document.querySelectorAll('input[data-translate-placeholder]');
+    const saveFavoritesBtn = document.getElementById('save-favorites-btn');
+    const favoritesList = document.getElementById('favorites-list');
+    const filterInputs = document.querySelectorAll('input[data-translate-placeholder]');
 
 
     function saveFavorites() {
         const filters = Array.from(filterInputs)
             .map(input => ({
-                name: input.previousElementSibling.textContent.trim(),
-                value: input.value.trim()
+                name: input.previousElementSibling.textContent.trim(), value: input.value.trim()
             }))
             .filter(filter => filter.value !== ""); // Убираем пустые значения
 
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites.push(filters); // Добавляем новый набор фильтров
-        localStorage.setItem('favorites', JSON.stringify(favorites)); // Сохраняем в localStorage
-        updateFavoritesList(); // Обновляем интерфейс
+        favorites.push(filters);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavoritesList();
     }
 
 
-function updateFavoritesList() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favoritesList.innerHTML = '';
+    function updateFavoritesList() {
+        const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        favoritesList.innerHTML = '';
 
-    favorites.forEach(favorite => {
-        const item = document.createElement('div');
-        item.classList.add('favorite-item');
-        item.textContent = `${favorite.name}: ${favorite.value}`;
-        favoritesList.appendChild(item);
+        favorites.forEach(favorite => {
+            const item = document.createElement('div');
+            item.classList.add('favorite-item');
+            item.textContent = `${favorite.name}: ${favorite.value}`;
+            favoritesList.appendChild(item);
+        });
+    }
+
+    saveFavoritesBtn.addEventListener('click', saveFavorites);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateFavoritesList();
     });
-}
-
-
-function loadFavorites() {
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    filterInputs.forEach(input => {
-        const favorite = favorites.find(fav => fav.name === input.previousElementSibling.textContent.trim());
-        if (favorite) {
-            input.value = favorite.value;
-        }
-    });
-}
-
-
-saveFavoritesBtn.addEventListener('click', saveFavorites);
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateFavoritesList();
-});
 
     function applyFavoriteFilter(event) {
         const favorite = JSON.parse(event.target.dataset.favorite);
         filterInputs.forEach(input => {
             const filter = favorite.find(fav => fav.name === input.previousElementSibling.textContent.trim());
             if (filter) {
-                input.value = filter.value; // Применяем сохраненные значения
+                input.value = filter.value;
             } else {
-                input.value = ""; // Очищаем, если фильтр не задан
+                input.value = "";
             }
         });
     }
@@ -554,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateFavoritesList() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favoritesList.innerHTML = ''; // Очищаем список
+        favoritesList.innerHTML = '';
 
         favorites.forEach((favorite, index) => {
             const item = document.createElement('div');
@@ -562,7 +531,6 @@ document.addEventListener('DOMContentLoaded', () => {
             item.textContent = favorite.map(fav => `${fav.name}: ${fav.value}`).join(', ');
             item.dataset.favorite = JSON.stringify(favorite);
 
-            // Добавляем кнопку удаления
             const deleteBtn = document.createElement('button');
             deleteBtn.textContent = 'Usuń';
             deleteBtn.classList.add('delete-favorite-btn');
@@ -571,7 +539,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 deleteFavorite(index);
             });
 
-            // Добавляем слушатель на элемент
             item.addEventListener('click', applyFavoriteFilter);
 
             item.appendChild(deleteBtn);
@@ -581,38 +548,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function deleteFavorite(index) {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        favorites.splice(index, 1); // Удаляем элемент из массива
-        localStorage.setItem('favorites', JSON.stringify(favorites)); // Обновляем localStorage
-        updateFavoritesList(); // Обновляем интерфейс
+        favorites.splice(index, 1);
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+        updateFavoritesList();
     }
 
 
-function saveFavorites() {
-    const filters = Array.from(filterInputs).map(input => ({
-        name: input.previousElementSibling.textContent.trim(),
-        value: input.value.trim()
-    })).filter(filter => filter.value !== "");
-
-    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    favorites.push(filters);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-    updateFavoritesList();
-}
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    updateFavoritesList();
-});
+    document.addEventListener('DOMContentLoaded', () => {
+        updateFavoritesList();
+    });
 
 
     function loadSavedFilters() {
         const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
         if (favorites.length > 0) {
-            const lastSavedFilters = favorites[favorites.length - 1]; // Последний сохраненный набор
+            const lastSavedFilters = favorites[favorites.length - 1];
             filterInputs.forEach(input => {
                 const filter = lastSavedFilters.find(fav => fav.name === input.previousElementSibling.textContent.trim());
                 if (filter) {
-                    input.value = filter.value; // Заполняем значение
+                    input.value = filter.value;
                 }
             });
         }
