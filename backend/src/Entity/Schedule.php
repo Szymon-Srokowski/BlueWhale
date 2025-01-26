@@ -4,110 +4,130 @@ namespace App\Entity;
 
 class Schedule
 {
-private int $id;
-private string $title;
-private ?string $description;
-private \DateTime $startTime;
-private \DateTime $endTime;
-private ?Worker $worker;
-private ?Room $room;
-private ?StudyGroup $studyGroup;
-private ?Subject $subject;
-private ?string $lessonForm;
+    private ?int $id = null;
+    private ?string $title = null;
+    private ?string $description = null;
+    private ?\DateTimeInterface $startTime = null;
+    private ?\DateTimeInterface $endTime = null;
+    private ?int $workerId = null;
+    private ?int $roomId = null;
+    private ?int $groupId = null;
+    private ?int $subjectId = null;
+    private ?int $userId = null;
+    private ?string $lessonForm = null;
 
-// Getters and Setters
-public function getId(): int
-{
-return $this->id;
-}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-public function getTitle(): string
-{
-return $this->title;
-}
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
-public function setTitle(string $title): void
-{
-$this->title = $title;
-}
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
 
-public function getDescription(): ?string
-{
-return $this->description;
-}
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
-public function setDescription(?string $description): void
-{
-$this->description = $description;
-}
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+        return $this;
+    }
 
-public function getStartTime(): \DateTime
-{
-return $this->startTime;
-}
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->startTime;
+    }
 
-public function setStartTime(\DateTime $startTime): void
-{
-$this->startTime = $startTime;
-}
+    public function setStartTime(?\DateTimeInterface $startTime): self
+    {
+        $this->startTime = $startTime;
+        return $this;
+    }
 
-public function getEndTime(): \DateTime
-{
-return $this->endTime;
-}
+    public function getEndTime(): ?\DateTimeInterface
+    {
+        return $this->endTime;
+    }
 
-public function setEndTime(\DateTime $endTime): void
-{
-$this->endTime = $endTime;
-}
+    public function setEndTime(?\DateTimeInterface $endTime): self
+    {
+        $this->endTime = $endTime;
+        return $this;
+    }
 
-public function getWorker(): ?Worker
-{
-return $this->worker;
-}
+    public function getWorkerId(): ?int
+    {
+        return $this->workerId;
+    }
 
-public function setWorker(?Worker $worker): void
-{
-$this->worker = $worker;
-}
+    public function setWorkerId(?int $workerId): self
+    {
+        $this->workerId = $workerId;
+        return $this;
+    }
 
-public function getRoom(): ?Room
-{
-return $this->room;
-}
+    public function getRoomId(): ?int
+    {
+        return $this->roomId;
+    }
 
-public function setRoom(?Room $room): void
-{
-$this->room = $room;
-}
+    public function setRoomId(?int $roomId): self
+    {
+        $this->roomId = $roomId;
+        return $this;
+    }
 
-public function getStudyGroup(): ?StudyGroup
-{
-return $this->studyGroup;
-}
+    public function getGroupId(): ?int
+    {
+        return $this->groupId;
+    }
 
-public function setStudyGroup(?StudyGroup $studyGroup): void
-{
-$this->studyGroup = $studyGroup;
-}
+    public function setGroupId(?int $groupId): self
+    {
+        $this->groupId = $groupId;
+        return $this;
+    }
 
-public function getSubject(): ?Subject
-{
-return $this->subject;
-}
+    public function getSubjectId(): ?int
+    {
+        return $this->subjectId;
+    }
 
-public function setSubject(?Subject $subject): void
-{
-$this->subject = $subject;
-}
+    public function setSubjectId(?int $subjectId): self
+    {
+        $this->subjectId = $subjectId;
+        return $this;
+    }
 
-public function getLessonForm(): ?string
-{
-return $this->lessonForm;
-}
+    public function getUserId(): ?int
+    {
+        return $this->userId;
+    }
 
-public function setLessonForm(?string $lessonForm): void
-{
-$this->lessonForm = $lessonForm;
-}
+    public function setUserId(?int $userId): self
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    public function getLessonForm(): ?string
+    {
+        return $this->lessonForm;
+    }
+
+    public function setLessonForm(?string $lessonForm): self
+    {
+        $this->lessonForm = $lessonForm;
+        return $this;
+    }
 }

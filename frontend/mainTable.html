@@ -7,6 +7,7 @@
     <script src="js/table.js" defer></script>
     <link rel="stylesheet" href="css/table-white.css">
     <link id="dark-mode-stylesheet" rel="stylesheet" href="css/table-dark.css" disabled>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
   <body>
   <header>
@@ -27,7 +28,7 @@
     <div class="filters">
       <label data-translate="label-album">
         <span>Numer albumu</span>
-        <input type="text" data-translate-placeholder="placeholder-album" placeholder="Wprowadź numer albumu">
+        <input id="album-input" type="text" data-translate-placeholder="placeholder-album" placeholder="Wprowadź numer albumu">
       </label>
       <label data-translate="label-group">
         <span>Grupa</span>
@@ -46,7 +47,7 @@
         <input type="text" data-translate-placeholder="placeholder-room" placeholder="Wprowadź salę">
       </label>
       <div class="filters-buttons">
-        <button class="show-plan" data-translate="button-show-plan">
+        <button id="pokaz-plan-btn" class="show-plan" data-translate="button-show-plan">
           <img src="images/loop.svg" alt="loop" class="button-icon">
           <span>Pokaż plan</span>
         </button>
@@ -103,7 +104,7 @@
           <img src="images/right.svg" alt="next" class="button-icon">
         </button>
         <div class="export">
-          <button data-translate="button-export">
+          <button id="export-btn" data-translate="button-export">
             <img src="images/export.svg" alt="export" class="button-icon"><span>Eksport planu</span>
           </button>
         </div>

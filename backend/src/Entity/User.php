@@ -5,18 +5,7 @@ namespace App\Entity;
 class User
 {
     private ?int $id = null;
-    private string $firstName;
-    private string $lastName;
-    private string $email;
-    private string $password;
-
-    public function __construct(string $firstName, string $lastName, string $email, string $password)
-    {
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->email = $email;
-        $this->password = $password;
-    }
+    private ?int $nrAlbumu = null;
 
     public function getId(): ?int
     {
@@ -29,47 +18,14 @@ class User
         return $this;
     }
 
-    public function getFirstName(): string
+    public function getNrAlbumu(): ?int
     {
-        return $this->firstName;
+        return $this->nrAlbumu;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setNrAlbumu(int $nrAlbumu): self
     {
-        $this->firstName = $firstName;
-        return $this;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-        return $this;
-    }
-
-    public function getEmail(): string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
+        $this->nrAlbumu = $nrAlbumu;
         return $this;
     }
 }

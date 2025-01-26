@@ -9,7 +9,7 @@ class Database
 {
     public static function getConnection(array $config): PDO
     {
-        $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}";
+        $dsn = "pgsql:host={$config['host']};port={$config['port']};dbname={$config['dbname']}";
 
         try {
             $pdo = new PDO($dsn, $config['user'], $config['password']);
@@ -22,3 +22,4 @@ class Database
         }
     }
 }
+
