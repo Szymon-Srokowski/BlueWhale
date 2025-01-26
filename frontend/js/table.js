@@ -105,7 +105,6 @@ themeToggleButton.addEventListener("click", () => {
 
     const theme = isDarkMode ? "dark" : "light";
     localStorage.setItem("theme", theme);
-
     if (currentMode === "week") {
         createWeekView();
         renderWeekSchedule(currentEv);
@@ -412,6 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('language-toggle').addEventListener('click', toggleLanguage);
     updateTranslations();
 });
+let isScheduleCleared = false;
 
 document.getElementById('reset-filters-btn').addEventListener('click', () => {
     const inputs = document.querySelectorAll('input[data-translate-placeholder]');
@@ -419,6 +419,8 @@ document.getElementById('reset-filters-btn').addEventListener('click', () => {
         input.value = '';
     });
     clearTable();
+    currentEv = [];
+    isScheduleCleared = true;
 });
 
 let currentEv = [];
